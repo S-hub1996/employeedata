@@ -31,7 +31,7 @@ import {
 } from "@mui/material";
 import { CheckBox } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployees } from "../Redux/Action";
+import { addEmployees, getEmployees } from "../Redux/Action";
 // import { Image } from '@mui/material/Image';
 
 function Copyright() {
@@ -59,7 +59,16 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function Main() {
+let initialdata = {
+    name: "",
+    email: "",
+    phone: "",
+    gender: "",
+    hobbies:"",
+    dob:""
+  };
+  export default function Main() {
+    const [EmpData, setEmpData] = React.useState(initialdata);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -68,12 +77,28 @@ export default function Main() {
   const handleClose2 = () => setOpen2(false);
   const dispatch = useDispatch();
   const Emp = useSelector((store) => store.employees);
-
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setEmpData({ ...EmpData, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addEmployees(EmpData)).then(
+      getEmployees(),
+      setEmpData({ ...initialdata }),
+      alert("Employee ADDED")
+    );
+  };
   React.useEffect(() => {
     if (Emp.length === 0) {
       dispatch(getEmployees());
     }
   }, []);
+  React.useEffect(() => {
+
+      dispatch(getEmployees());
+    
+  }, [EmpData]);
   console.log(Emp);
 
   return (
@@ -133,27 +158,41 @@ export default function Main() {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style}>
+                    <form  onSubmit={handleSubmit}>
+
                   <FormControl>
                     <Typography>Name</Typography>
-                    <TextField required />
+                    <TextField required name="name"
+            value={EmpData.name}
+            onChange={handlechange}/>
                     <Typography>Email</Typography>
-                    <TextField required type={"email"} />
+                    <TextField required type={"email"} name="email"
+            value={EmpData.email}
+            onChange={handlechange}/>
                     <Typography>Phone</Typography>
-                    <TextField required type={"number"} />
+                    <TextField required type={"number"} name="phone"
+            value={EmpData.phone}
+            onChange={handlechange}/>
                     <Typography>Date of Birth</Typography>
                     <OutlinedInput
                       required
                       id="dob"
                       type="date"
                       variant="outline"
-                    />
+                      name="dob"
+            value={EmpData.dob}
+            onChange={handlechange}
+                      />
                     {/* <input type={'date'}></input> */}
                     <Typography>Gender</Typography>
                     <RadioGroup
+                    name="gender"
+                    value={EmpData.gender}
+                    onChange={handlechange}
                       required
                       aria-labelledby="demo-radio-buttons-group-label"
                       defaultValue="male"
-                      name="radio-buttons-group"
+                    //   name="radio-buttons-group"
                     >
                       <FormControlLabel
                         value="female"
@@ -164,27 +203,35 @@ export default function Main() {
                         value="male"
                         control={<Radio />}
                         label="Male"
-                      />
+                        />
                       <FormControlLabel
                         value="other"
                         control={<Radio />}
                         label="Other"
-                      />
+                        />
                     </RadioGroup>
                     <Typography>Hobbies</Typography>
                     <FormGroup>
                       <FormControlLabel
+                      value={'Playing Cricket'}
                         control={<Checkbox />}
-                        label=" Playing Cricket"
-                      />
+                        label="Playing Cricket"
+                        />
                       <FormControlLabel
+                      value={'Watching Movies'}
                         control={<Checkbox />}
                         label="Watching Movies"
-                      />
+                        />
                       <FormControlLabel
+                       value={'Singing'}
                         control={<Checkbox />}
-                        label="Reading Books"
-                      />
+                        label="Singing"
+                        />
+                      <FormControlLabel
+                      value={'Cooking'}
+                        control={<Checkbox />}
+                        label="Cooking"
+                        />
                     </FormGroup>
 
                     <Button type="submit" variant="contained">
@@ -192,6 +239,7 @@ export default function Main() {
                       Add
                     </Button>
                   </FormControl>
+          </form>
                 </Box>
               </Modal>
             </Stack>
