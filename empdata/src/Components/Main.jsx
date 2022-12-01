@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Checkbox, FormControl, FormControlLabel, FormHelperText, Input, InputLabel, Modal, OutlinedInput, Radio, RadioGroup, TextField } from '@mui/material';
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, Input, InputLabel, Modal, OutlinedInput, Radio, RadioGroup, TextField } from '@mui/material';
 import { CheckBox } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployees } from '../Redux/Action';
@@ -26,7 +26,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+      tericsoft.com
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -34,7 +34,6 @@ function Copyright() {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 const style = {
@@ -113,30 +112,32 @@ export default function Main() {
   <Typography>Name</Typography>
   <TextField required/>
   <Typography>Email</Typography>
-  <TextField />
+  <TextField required type={'email'}/>
   <Typography>Phone</Typography>
-  <TextField type={'number'} />
+  <TextField required type={'number'} />
   <Typography>Date of Birth</Typography>
-  <OutlinedInput id='dob' type='date' variant='outline'/>
+  <OutlinedInput required id='dob' type='date' variant='outline'/>
   {/* <input type={'date'}></input> */}
   <Typography>Gender</Typography>
   <RadioGroup
+  required
     aria-labelledby="demo-radio-buttons-group-label"
-    defaultValue="female"
+    defaultValue="male"
     name="radio-buttons-group"
+
     >
     <FormControlLabel value="female" control={<Radio />} label="Female" />
     <FormControlLabel value="male" control={<Radio />} label="Male" />
     <FormControlLabel value="other" control={<Radio />} label="Other" />
   </RadioGroup>
       <Typography>Hobbies</Typography>
-  <CheckBox defaultChecked />
-<Checkbox label="Label"/>
-<Checkbox disabled label="Label"/>
-<Checkbox disabled checked label="Label"/>
+      <FormGroup>
+  <FormControlLabel control={<Checkbox />} label=" Playing Cricket" />
+  <FormControlLabel control={<Checkbox />} label="Watching Movies" />
+  <FormControlLabel control={<Checkbox />} label="Reading Books" />
+</FormGroup>
 
-
-  <Button type='submit' variant='contained'> khali</Button>
+  <Button type='submit' variant='contained'> Add</Button>
 
 
 </FormControl>
@@ -156,7 +157,6 @@ export default function Main() {
                 >
                   <CardMedia
                     component="img"
-                    
                     image="https://source.unsplash.com/random"
                     alt="random"
                   />
