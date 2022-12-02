@@ -2,13 +2,7 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import CameraIcon from "@mui/icons-material/PhotoCamera";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
+
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -16,6 +10,8 @@ import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
+  CssBaseline,
+  Stack,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -28,10 +24,21 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  CheckBox,
+  Grid
 } from "@mui/material";
-import { CheckBox } from "@mui/icons-material";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+
 import { useDispatch, useSelector } from "react-redux";
 import { addEmployees, getEmployees } from "../Redux/Action";
+import Cards from "./Cards";
 // import { Image } from '@mui/material/Image';
 
 function Copyright() {
@@ -245,109 +252,12 @@ let initialdata = {
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        
+        <Container sx={{ py: 20 }} maxWidth="md">
           {/* End hero unit */}
-          <Grid container spacing={4}>
+          <Grid   container spacing={4} gap={8} mx={'5%'}>
             {Emp?.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    image="https://source.unsplash.com/random"
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.name}
-                    </Typography>
-                    <Typography>Email: {card.email}</Typography>
-                    <Typography>Phone: {card.phone}</Typography>
-                    <Typography>Gender: {card.gender}</Typography>
-                    <Typography>Hobbies: {card.hobbies}</Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-
-                    <Button onClick={handleOpen2} size="small">
-                      Edit
-                    </Button>
-                    <Modal
-                      open={open2}
-                      onClose={handleClose2}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <FormControl>
-                          <Typography>Name</Typography>
-                          <TextField required />
-                          <Typography>Email</Typography>
-                          <TextField required type={"email"} />
-                          <Typography>Phone</Typography>
-                          <TextField required type={"number"} />
-                          <Typography>Date of Birth</Typography>
-                          <OutlinedInput
-                            required
-                            id="dob"
-                            type="date"
-                            variant="outline"
-                          />
-                          {/* <input type={'date'}></input> */}
-                          <Typography>Gender</Typography>
-                          <RadioGroup
-                            required
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="male"
-                            name="radio-buttons-group"
-                          >
-                            <FormControlLabel
-                              value="female"
-                              control={<Radio />}
-                              label="Female"
-                            />
-                            <FormControlLabel
-                              value="male"
-                              control={<Radio />}
-                              label="Male"
-                            />
-                            <FormControlLabel
-                              value="other"
-                              control={<Radio />}
-                              label="Other"
-                            />
-                          </RadioGroup>
-                          <Typography>Hobbies</Typography>
-                          <FormGroup>
-                            <FormControlLabel
-                              control={<Checkbox />}
-                              label=" Playing Cricket"
-                            />
-                            <FormControlLabel
-                              control={<Checkbox />}
-                              label="Watching Movies"
-                            />
-                            <FormControlLabel
-                              control={<Checkbox />}
-                              label="Reading Books"
-                            />
-                          </FormGroup>
-
-                          <Button type="submit" variant="contained">
-                            {" "}
-                            Edit Employee
-                          </Button>
-                        </FormControl>
-                      </Box>
-                    </Modal>
-                  </CardActions>
-                </Card>
-              </Grid>
+             <Cards card={card}/>
             ))}
           </Grid>
         </Container>

@@ -73,13 +73,13 @@ const updateEmployeesFailure = (e) => {
     }
 }
 
-const updateMusicRecord = (id,payload) => (dispatch) => {
+const updateEmployees = (id,payload) => (dispatch) => {
     dispatch(updateEmployeesRequest())
-    return axios.patch(`http://localhost:8080/albums/${id}`,payload).then((r) => {
+    return axios.patch(`https://json-server-bc3l.onrender.com/data/${id}`,payload).then((r) => {
         return dispatch(updateEmployeesuccess(r))
     }).catch((e) => {
         return dispatch(updateEmployeesFailure(e))
     })
 }
 
-export { getEmployees, updateMusicRecord,addEmployees}
+export { getEmployees, updateEmployees,addEmployees}
